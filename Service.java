@@ -29,6 +29,11 @@ public abstract class Service implements ITestable{
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        for(Object o: model.allObjects){
+            if(o instanceof Service){
+                if(!((Service) o).checkConstraints()) return false;
+            }
+        }
         return true;
     }
 }

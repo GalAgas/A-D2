@@ -41,6 +41,11 @@ public class RoomCategory implements  ITestable{
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        for(Object o: model.allObjects){
+            if(o instanceof RoomCategory){
+                if(!((RoomCategory) o).checkConstraints()) return false;
+            }
+        }
         return true;
     }
 }

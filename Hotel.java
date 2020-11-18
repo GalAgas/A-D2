@@ -59,10 +59,28 @@ public class Hotel implements  ITestable{
 
     @Override
     public boolean checkConstraints() {
-        return true;
+        if(constraint_6()) return true;
+        return false;
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        for(Object o: model.allObjects){
+            if(o instanceof Hotel){
+                if(!((Hotel) o).checkConstraints()) return false;
+            }
+        }
         return true;
+    }
+
+    /**
+     * Amount of VIP rooms in a specific hotel would not exceed more than 10% of all hotel's rooms.
+     * @return
+     */
+    public boolean constraint_6(){
+        int numOfVip = 0;
+        for(Room room: rooms.values()){
+            if(room.getRoomCategory().getType() == RoomCategory.RoomType.VIP) numOfVip++;
+        }
+        return numOfVip <= (0.1 * rooms.size());
     }
 }

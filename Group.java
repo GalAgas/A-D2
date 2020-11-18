@@ -30,6 +30,11 @@ public class Group implements  ITestable{
         return true;
     }
     public static boolean checkAllIntancesConstraints(Model model){
+        for(Object o: model.allObjects){
+            if(o instanceof Group){
+                if(!((Group) o).checkConstraints()) return false;
+            }
+        }
         return true;
     }
 }
