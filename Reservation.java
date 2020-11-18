@@ -58,6 +58,11 @@ public class Reservation implements  ITestable {
     }
 
     public static boolean checkAllIntancesConstraints(Model model) {
+        for(Object o: model.allObjects){
+            if(o instanceof Reservation){
+                if(!((Reservation) o).checkConstraints()) return false;
+            }
+        }
         return true;
     }
 

@@ -34,6 +34,11 @@ public class Review implements  ITestable{
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        for(Object o: model.allObjects){
+            if(o instanceof Review){
+                if(!((Review) o).checkConstraints()) return false;
+            }
+        }
         return true;
     }
 

@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.net.ServerSocket;
+import java.util.*;
 
 public class Booking implements  ITestable{
     private Date date;
@@ -56,10 +55,33 @@ public class Booking implements  ITestable{
 
     @Override
     public boolean checkConstraints() {
-        return true;
+        if(constraint_13()) return true;
+        return false;
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        for(Object o: model.allObjects){
+            if(o instanceof Booking){
+                if(!((Booking) o).checkConstraints()) return false;
+            }
+        }
         return true;
+    }
+
+    /**
+     * All services given in the booking belong to the hosting hotel.
+     * @return
+     */
+    public boolean constraint_13(){
+        HashMap<Service, HotelService> hotelServices = this.room.getHotel().getServices();
+        for(HotelService service: this.services) {
+            boolean found = false;
+            for (HotelService hotelService : hotelServices.values()) {
+                if (service == hotelService) found = true;
+            }
+            if (!found) return false;
+        }
+        return true;
+
     }
 }
