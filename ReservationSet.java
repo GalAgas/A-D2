@@ -36,8 +36,8 @@ public class ReservationSet implements  ITestable{
 
     @Override
     public boolean checkConstraints() {
-        if(constraint_2()) return true;
-        return false;
+        if(!constraint_2()) return false;
+        return true;
     }
 
     public static boolean checkAllIntancesConstraints(Model model){

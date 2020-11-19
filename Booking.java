@@ -55,14 +55,50 @@ public class Booking implements  ITestable{
 
     @Override
     public boolean checkConstraints() {
-        if(constraint_13()) return true;
-        return false;
+        if(!constraint_8()) return false;
+        if(!constraint_9()) return false;
+        if(!constraint_13()) return false;
+        return true;
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
         for(Object o: model.allObjects){
             if(o instanceof Booking){
                 if(!((Booking) o).checkConstraints()) return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * RoomCatagory type have to be in the same level or higher
+     * @return
+     */
+    public boolean constraint_8(){
+        RoomCategory.RoomType RoomTypeOfReservation = this.getReservation().getRoomCategory().getType();
+        RoomCategory.RoomType RoomTypeOfRoom = this.getRoom().getRoomCategory().getType();
+        boolean boolToReturn = true;
+        if(RoomTypeOfReservation == RoomCategory.RoomType.VIP){
+            if(!(RoomTypeOfRoom == RoomCategory.RoomType.VIP)){
+                boolToReturn = false;
+            }
+        }
+        if(RoomTypeOfReservation == RoomCategory.RoomType.SUITE){
+            if(!(RoomTypeOfRoom == RoomCategory.RoomType.VIP || RoomTypeOfRoom == RoomCategory.RoomType.SUITE)){
+                boolToReturn = false;
+            }
+        }
+        return boolToReturn;
+    }
+
+    /**
+     * Client that ordered a VIP service must have a review
+     * @return
+     */
+    public boolean constraint_9(){
+        for (HotelService hs: this.getServices()){
+            if(hs.getService() instanceof VipService){
+                if (this.review == null) return false;
             }
         }
         return true;
@@ -82,6 +118,5 @@ public class Booking implements  ITestable{
             if (!found) return false;
         }
         return true;
-
     }
 }
