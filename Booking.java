@@ -53,6 +53,9 @@ public class Booking implements  ITestable{
         return review;
     }
 
+    public boolean constrinat_3(){
+        return this.getDate().equals(this.getReservation().getRequestDate());
+    }
 
     @Override
     public boolean checkConstraints() {
