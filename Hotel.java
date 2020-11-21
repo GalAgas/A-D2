@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Hotel implements  ITestable{
     private String name;
@@ -56,6 +58,36 @@ public class Hotel implements  ITestable{
     public HashMap<Service, HotelService> getServices(){return services;}
 
     public int getRate(){return rate;}
+
+    public boolean constraint_7(){
+        if (this.getCity().equals("LAS VEGAS")){
+            for (Client c: this.getAllReservation().keySet()) {
+                if (c.getAge() < 21){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean constraint_10(){
+        if (this.getRate() == 5){
+            HashSet<Review> allReviews = new HashSet<>();
+            for (ReservationSet rs: this.getAllReservation().values()) {
+                for (Reservation r: rs.getReservations()){
+                    if (r.getBookings() != null && r.getBookings().getReview() != null){
+                        allReviews.add(r.getBookings().getReview());
+                    }
+                }
+            }
+            double sumOfRanks = 0;
+            for (Review r:allReviews) {
+                sumOfRanks += r.getRank();
+            }
+            return sumOfRanks/allReviews.size() > 7.5;
+        }
+        return true;
+    }
 
     @Override
     public boolean checkConstraints() {
