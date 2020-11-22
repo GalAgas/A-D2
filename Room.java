@@ -37,9 +37,22 @@ public class Room implements  ITestable{
 
     public Hotel getHotel(){ return hotel; }
 
+    public boolean constraint_5(){
+        if (this.getRoomCategory().getType().equals(RoomCategory.RoomType.VIP)){
+            for (Booking b : this.getBookings().values()) {
+                for (HotelService hs : b.getServices()) {
+                    if (!(hs.getService() instanceof VipService)){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     @Override
     public boolean checkConstraints() {
-        return true;
+        return constraint_5();
     }
 
     public static boolean checkAllIntancesConstraints(Model model){

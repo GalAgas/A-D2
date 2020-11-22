@@ -32,7 +32,6 @@ public class Model {
         reservation.setReservationSet(reservationSet);
     }
 
-
     public void create_link_reservation_roomCategory(Reservation reservation, RoomCategory roomCategory){
         reservation.addRoomCategory(roomCategory);
         roomCategory.addReservation(reservation);
