@@ -25,6 +25,26 @@ public class Group implements  ITestable{
         return hotels;
     }
 
+    @Override
+    public boolean checkConstraints() {
+//        if(!constraint_1()) return false;
+//        if(!constraint_4()) return false;
+//        return true;
+        return constraint_1() && constraint_4();
+    }
+    public static boolean checkAllIntancesConstraints(Model model){
+        for(Object o: model.allObjects){
+            if(o instanceof Group){
+                if(!((Group) o).checkConstraints()) return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Maximum one hotel of the same group in a city
+     * @return
+     */
     public boolean constraint_1(){
         for (Hotel h1:this.getHotels()){
             for (Hotel h2:this.getHotels()) {
@@ -36,19 +56,6 @@ public class Group implements  ITestable{
         return true;
     }
 
-    @Override
-    public boolean checkConstraints() {
-        if(!constraint_4()) return false;
-        return true;
-    }
-    public static boolean checkAllIntancesConstraints(Model model){
-        for(Object o: model.allObjects){
-            if(o instanceof Group){
-                if(!((Group) o).checkConstraints()) return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * same services to all the hotels in the same group

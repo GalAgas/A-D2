@@ -59,41 +59,15 @@ public class Hotel implements  ITestable{
 
     public int getRate(){return rate;}
 
-    public boolean constraint_7(){
-        if (this.getCity().equals("LAS VEGAS")){
-            for (Client c: this.getAllReservation().keySet()) {
-                if (c.getAge() < 21){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public boolean constraint_10(){
-        if (this.getRate() == 5){
-            HashSet<Review> allReviews = new HashSet<>();
-            for (ReservationSet rs: this.getAllReservation().values()) {
-                for (Reservation r: rs.getReservations()){
-                    if (r.getBookings() != null && r.getBookings().getReview() != null){
-                        allReviews.add(r.getBookings().getReview());
-                    }
-                }
-            }
-            double sumOfRanks = 0;
-            for (Review r:allReviews) {
-                sumOfRanks += r.getRank();
-            }
-            return sumOfRanks/allReviews.size() > 7.5;
-        }
-        return true;
-    }
 
     @Override
     public boolean checkConstraints() {
-        if(!constraint_6()) return false;
-        if(!constraint_11()) return false;
-        return true;
+//        if(!constraint_6()) return false;
+//        if(!constraint_7()) return false;
+//        if(!constraint_10()) return false;
+//        if(!constraint_11()) return false;
+//        return true;
+        return constraint_6() && constraint_7() && constraint_10() && constraint_11();
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
@@ -115,6 +89,46 @@ public class Hotel implements  ITestable{
             if(room.getRoomCategory().getType() == RoomCategory.RoomType.VIP) numOfVip++;
         }
         return numOfVip <= (0.1 * rooms.size());
+    }
+
+
+    /**
+     * The guest registered on the reservation of hotels in LAS VEGAS must be 21 and over
+     * @return
+     */
+    public boolean constraint_7(){
+        if (this.getCity().equals("LAS VEGAS")){
+            for (Client c: this.getAllReservation().keySet()) {
+                if (c.getAge() < 21){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * Average rating of reviews for 5 stars hotels must be greater than 5.7
+     * @return
+     */
+    public boolean constraint_10(){
+        if (this.getRate() == 5){
+            HashSet<Review> allReviews = new HashSet<>();
+            for (ReservationSet rs: this.getAllReservation().values()) {
+                for (Reservation r: rs.getReservations()){
+                    if (r.getBookings() != null && r.getBookings().getReview() != null){
+                        allReviews.add(r.getBookings().getReview());
+                    }
+                }
+            }
+            double sumOfRanks = 0;
+            for (Review r:allReviews) {
+                sumOfRanks += r.getRank();
+            }
+            return sumOfRanks/allReviews.size() > 7.5;
+        }
+        return true;
     }
 
     /**

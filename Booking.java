@@ -52,16 +52,15 @@ public class Booking implements  ITestable{
         return review;
     }
 
-    public boolean constrinat_3(){
-        return this.getDate().equals(this.getReservation().getRequestDate());
-    }
+
 
     @Override
     public boolean checkConstraints() {
-        if(!constraint_8()) return false;
-        if(!constraint_9()) return false;
-        if(!constraint_13()) return false;
-        return true;
+//        if(!constraint_8()) return false;
+//        if(!constraint_9()) return false;
+//        if(!constraint_13()) return false;
+//        return true;
+        return constraint_8() && constraint_9() && constraint_13();
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
@@ -72,6 +71,7 @@ public class Booking implements  ITestable{
         }
         return true;
     }
+
 
     /**
      * RoomCatagory type have to be in the same level or higher
