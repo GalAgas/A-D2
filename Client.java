@@ -49,6 +49,11 @@ public class Client implements  ITestable {
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        for(Object o: model.allObjects){
+            if(o instanceof Client){
+                if(!((Client) o).checkConstraints()) return false;
+            }
+        }
         return true;
     }
 }

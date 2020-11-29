@@ -36,10 +36,30 @@ public class ReservationSet implements  ITestable{
 
     @Override
     public boolean checkConstraints() {
+        if(!constraint_2()) return false;
         return true;
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        for(Object o: model.allObjects){
+            if(o instanceof ReservationSet){
+                if(!((ReservationSet) o).checkConstraints()) return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * If a customer has at least 5 different reservations, one of them should be with a VIP room.
+     * @return
+     */
+    public boolean constraint_2(){
+        if(this.reservations.size() > 4){
+            for(Reservation reservation: this.reservations){
+                if(reservation.getRoomCategory().getType() == RoomCategory.RoomType.VIP) return true;
+            }
+            return false;
+        }
         return true;
     }
 }
