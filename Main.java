@@ -6,7 +6,116 @@ public class Main {
 //        check3();
 //        check7();
 //        check10();
+//        check4();
+//        check8();
+//        check9();
+//        check11();
     }
+
+
+    public static void check11(){
+        Model m = new Model();
+        Hotel h = new Hotel("beer sheva", "beer sheva", 4);
+        Service s = new RegularService("Tomer");
+        Service s1 = new RegularService("Tomerk");
+        HotelService hs = new HotelService(12,12);
+        HotelService hs1 = new HotelService(12,12);
+
+
+        m.addObjectToModel(h);
+        m.addObjectToModel(s);
+        m.addObjectToModel(s1);
+        m.addObjectToModel(hs);
+        m.addObjectToModel(hs1);
+
+        h.addService(s,hs);
+        h.addService(s1,hs1);
+
+        System.out.println(h.constraint_11());
+
+    }
+
+
+
+    public static void check9() {
+        Model m = new Model();
+        Room r = new Room(1);
+        Date d = new Date();
+        Booking b = new Booking(d,r);
+        HotelService hs = new HotelService(12,12);
+        Review re = new Review(8,"to",d);
+        Service vs = new VipService("ttto");
+
+        m.addObjectToModel(b);
+        m.addObjectToModel(r);
+        m.addObjectToModel(hs);
+        m.addObjectToModel(re);
+        m.addObjectToModel(vs);
+
+        hs.assignService(vs);
+        b.addService(hs);
+        //b.addReview(re);
+
+        System.out.println(b.constraint_9());
+
+    }
+
+
+    public static void check8() {
+        Model m = new Model();
+        Room r = new Room(1);
+        Date d = new Date();
+        Booking b = new Booking(d,r);
+        Reservation rs = new Reservation(new Date(),new Date(), 23);
+        RoomCategory rc = new RoomCategory(100, RoomCategory.RoomType.VIP);
+        RoomCategory rc2 = new RoomCategory(100, RoomCategory.RoomType.VIP);
+        RoomCategory rc3 = new RoomCategory(100, RoomCategory.RoomType.BASIC);
+
+        m.addObjectToModel(b);
+        m.addObjectToModel(rs);
+        m.addObjectToModel(rc);
+        m.addObjectToModel(rc2);
+        m.addObjectToModel(r);
+
+        rs.addRoomCategory(rc3);
+        b.addReservation(rs);
+
+        //rc.addRoom(r);
+        r.asignRoomCategory(rc2);
+        r.addBooking(b, new Date());
+
+        System.out.println(b.constraint_8());
+
+
+    }
+
+    public static void check4(){
+        Model m = new Model();
+        Group g = new Group(1);
+        Hotel h1 = new Hotel("Tel Aviv", "Dan Pano", 3);
+        Hotel h2 = new Hotel("Tel Aviv", "Dan k", 4);
+        m.addObjectToModel(g);
+        m.addObjectToModel(h1);
+        m.addObjectToModel(h2);
+        g.addHotelToGroup(h1);
+        g.addHotelToGroup(h2);
+
+        Service s1 = new RegularService("reg");
+        Service s2 = new RegularService("reg2");
+        HotelService hs1 = new HotelService(12,12);
+        HotelService hs2 = new HotelService(13,13);
+
+        m.addObjectToModel(s1);
+        m.addObjectToModel(s2);
+        m.addObjectToModel(hs1);
+        m.addObjectToModel(hs2);
+        h1.addService(s1,hs1);
+        h2.addService(s1,hs1);
+        h2.addService(s2,hs2);
+        h1.addService(s2,hs2);
+        System.out.println(g.constraint_4());
+    }
+
 
     public static void check1(){
         Model m = new Model();

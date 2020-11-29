@@ -187,7 +187,7 @@ public class Hotel implements  ITestable{
         for (Service s1: list_of_Services.keySet()) {
             for (Service s2: list_of_Services.keySet()) {
                 if(s1 != s2){
-                    if(!(s1.getServiceName().equals(s2.getServiceName()))){
+                    if((s1.getServiceName().equals(s2.getServiceName()))){
                         boolToReturn = false;
                     }
                 }

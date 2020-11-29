@@ -82,12 +82,12 @@ public class Booking implements  ITestable{
         RoomCategory.RoomType RoomTypeOfRoom = this.getRoom().getRoomCategory().getType();
         boolean boolToReturn = true;
         if(RoomTypeOfReservation == RoomCategory.RoomType.VIP){
-            if(!(RoomTypeOfRoom == RoomCategory.RoomType.VIP)){
+            if((RoomTypeOfRoom != RoomCategory.RoomType.VIP)){
                 boolToReturn = false;
             }
         }
         if(RoomTypeOfReservation == RoomCategory.RoomType.SUITE){
-            if(!(RoomTypeOfRoom == RoomCategory.RoomType.VIP || RoomTypeOfRoom == RoomCategory.RoomType.SUITE)){
+            if((RoomTypeOfRoom != RoomCategory.RoomType.VIP || RoomTypeOfRoom == RoomCategory.RoomType.SUITE)){
                 boolToReturn = false;
             }
         }
