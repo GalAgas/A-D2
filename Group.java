@@ -25,11 +25,19 @@ public class Group implements  ITestable{
         return hotels;
     }
 
+    public boolean constraint_1(){
+        for (Hotel h1:this.getHotels()){
+            for (Hotel h2:this.getHotels()) {
+                if (h1 != h2 && h1.getCity().equals(h2.getCity())){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     @Override
     public boolean checkConstraints() {
-//        if(!constraint_1()) return false;
-//        if(!constraint_4()) return false;
-//        return true;
         return constraint_1() && constraint_4();
     }
     public static boolean checkAllIntancesConstraints(Model model){
