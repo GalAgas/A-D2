@@ -78,17 +78,19 @@ public class Booking implements  ITestable{
      * @return
      */
     public boolean constraint_8(){
-        RoomCategory.RoomType RoomTypeOfReservation = this.getReservation().getRoomCategory().getType();
-        RoomCategory.RoomType RoomTypeOfRoom = this.getRoom().getRoomCategory().getType();
         boolean boolToReturn = true;
-        if(RoomTypeOfReservation == RoomCategory.RoomType.VIP){
-            if((RoomTypeOfRoom != RoomCategory.RoomType.VIP)){
-                boolToReturn = false;
+        if (this.getReservation().getRoomCategory().getType() != null && this.getRoom().getRoomCategory().getType() != null){
+            RoomCategory.RoomType RoomTypeOfReservation = this.getReservation().getRoomCategory().getType();
+            RoomCategory.RoomType RoomTypeOfRoom = this.getRoom().getRoomCategory().getType();
+            if(RoomTypeOfReservation == RoomCategory.RoomType.VIP){
+                if((RoomTypeOfRoom != RoomCategory.RoomType.VIP)){
+                    boolToReturn = false;
+                }
             }
-        }
-        if(RoomTypeOfReservation == RoomCategory.RoomType.SUITE){
-            if((RoomTypeOfRoom != RoomCategory.RoomType.VIP || RoomTypeOfRoom == RoomCategory.RoomType.SUITE)){
-                boolToReturn = false;
+            if(RoomTypeOfReservation == RoomCategory.RoomType.SUITE){
+                if((RoomTypeOfRoom != RoomCategory.RoomType.VIP || RoomTypeOfRoom == RoomCategory.RoomType.SUITE)){
+                    boolToReturn = false;
+                }
             }
         }
         return boolToReturn;
@@ -99,9 +101,11 @@ public class Booking implements  ITestable{
      * @return
      */
     public boolean constraint_9(){
-        for (HotelService hs: this.getServices()){
-            if(hs.getService() instanceof VipService){
-                if (this.review == null) return false;
+        if (this.getServices() != null){
+            for (HotelService hs: this.getServices()){
+                if(hs.getService() != null && hs.getService() instanceof VipService){
+                    if (this.review == null) return false;
+                }
             }
         }
         return true;
