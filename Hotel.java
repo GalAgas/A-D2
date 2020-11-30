@@ -136,17 +136,21 @@ public class Hotel implements  ITestable{
      * @return
      */
     public boolean constraint_11(){
-        HashMap<Service, HotelService> list_of_Services = this.getServices();
         boolean boolToReturn = true;
-        for (Service s1: list_of_Services.keySet()) {
-            for (Service s2: list_of_Services.keySet()) {
-                if(s1 != s2){
-                    if((s1.getServiceName().equals(s2.getServiceName()))){
-                        boolToReturn = false;
+        if (this.getServices() != null){
+            HashMap<Service, HotelService> list_of_Services = this.getServices();
+            for (Service s1: list_of_Services.keySet()) {
+                for (Service s2: list_of_Services.keySet()) {
+                    if(s1 != s2){
+                        if((s1.getServiceName() != null && s1.getServiceName().equals(s2.getServiceName()))){
+                            boolToReturn = false;
+                        }
                     }
                 }
             }
         }
+
+
         return boolToReturn;
     }
 }

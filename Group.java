@@ -65,20 +65,25 @@ public class Group implements  ITestable {
      * @return
      */
     public boolean constraint_4() {
-        HashSet<Hotel> list_of_hotels = this.hotels;
         Set<Service> setServices = new HashSet<>();
-        for (Hotel h1 : list_of_hotels) {
-            for (Service s1 : h1.getServices().keySet()) {
-                setServices.add(s1);
+        HashSet<Hotel> list_of_hotels = null;
+        if (this.hotels != null)
+            list_of_hotels = this.hotels;
+            for (Hotel h1 : list_of_hotels) {
+                if (h1.getServices() != null){
+                    for (Service s1 : h1.getServices().keySet()) {
+                        setServices.add(s1);
+                    }
+                }
+
             }
-        }
-        for (Hotel h2 : list_of_hotels) {
-            for (Service s2 : setServices) {
-                if (!h2.getServices().keySet().contains(s2)) {
-                    return false;
+            for (Hotel h2 : list_of_hotels) {
+                for (Service s2 : setServices) {
+                    if (!h2.getServices().keySet().contains(s2)) {
+                        return false;
+                    }
                 }
             }
-        }
         return true;
     }
 

@@ -2,14 +2,14 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
-//        check1();
-//        check3();
-//        check7();
-//        check10();
-//        check4();
-//        check8();
-//        check9();
-//        check11();
+        check1();
+        check3();
+        check7();
+        check10();
+        check4();
+        check8();
+        check9();
+        check11();
     }
 
 
@@ -54,7 +54,7 @@ public class Main {
 
         hs.assignService(vs);
         b.addService(hs);
-        //b.addReview(re);
+        b.addReview(re);
 
         System.out.println(b.constraint_9());
 
@@ -121,7 +121,7 @@ public class Main {
         Model m = new Model();
         Group g = new Group(1);
         Hotel h1 = new Hotel("Tel Aviv", "Dan Pano", 1);
-        Hotel h2 = new Hotel("Tel Aviv", "Dan k", 4);
+        Hotel h2 = new Hotel("Beer Sheva", "Dan k", 4);
 
         m.addObjectToModel(g);
         m.addObjectToModel(h1);
