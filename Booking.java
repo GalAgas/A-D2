@@ -73,13 +73,15 @@ public class Booking implements  ITestable{
      * @return
      */
     public boolean constraint_13(){
-        HashMap<Service, HotelService> hotelServices = this.room.getHotel().getServices();
-        for(HotelService service: this.services) {
-            boolean found = false;
-            for (HotelService hotelService : hotelServices.values()) {
-                if (service == hotelService) found = true;
+        if( this.room.getHotel() != null) {
+            HashMap<Service, HotelService> hotelServices = this.room.getHotel().getServices();
+            for (HotelService service : this.services) {
+                boolean found = false;
+                for (HotelService hotelService : hotelServices.values()) {
+                    if (service == hotelService) found = true;
+                }
+                if (!found) return false;
             }
-            if (!found) return false;
         }
         return true;
 
